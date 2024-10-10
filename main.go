@@ -30,6 +30,7 @@ func main() {
 
 	// Render component htmls
 	mux.HandleFunc("/profile", components.ProfileHandler)
+	mux.HandleFunc("/dropdown", components.DropdownComponent)
 
 	// Function Handlers
 	
