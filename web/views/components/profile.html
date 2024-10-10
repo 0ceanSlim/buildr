@@ -1,0 +1,20 @@
+{{define "profile"}}
+<div class="profile-container">
+  <img src="{{.Picture}}" alt="Profile Picture" class="profile-picture" />
+  <h2 class="display-name">{{.DisplayName}}</h2>
+  <p class="public-key">{{.PublicKey}}</p>
+  <p class="about">{{.About}}</p>
+  <div class="relays">
+    <h3>Relays:</h3>
+    <ul>
+      {{range .Relays.Read}}
+      <li>Read: {{.}}</li>
+      {{end}} {{range .Relays.Write}}
+      <li>Write: {{.}}</li>
+      {{end}} {{range .Relays.Both}}
+      <li>Both: {{.}}</li>
+      {{end}}
+    </ul>
+  </div>
+</div>
+{{end}}

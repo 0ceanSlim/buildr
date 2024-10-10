@@ -1,0 +1,50 @@
+{{define "view"}}
+<main class="flex flex-col my-16 md:my-32">
+  {{template "profile" .}}
+
+    <!-- Spinner shown during loading -->
+    <div id="tab-content" class="p-4">
+      <div id="spinner" class="spinner"></div>
+      <!-- Spinner is shown here while loading -->
+    </div>
+  </div>
+
+  <script>
+    function toggleDropdown() {
+      const dropdown = document.getElementById("dropdown");
+      dropdown.classList.toggle("hidden");
+    }
+
+    // Check if the Nostr extension is available
+    window.onload = function () {
+      if (!window.nostr) {
+        alert("Nostr extension not available. Redirecting to login...");
+        window.location.href = "/login";
+      }
+    };
+  </script>
+  <script>
+    function showSpinner(spinnerId) {
+      const spinner = document.getElementById(spinnerId);
+      if (spinner) {
+        spinner.style.display = "block";
+      }
+    }
+
+    function hideSpinner(spinnerId) {
+      const spinner = document.getElementById(spinnerId);
+      if (spinner) {
+        spinner.style.display = "none";
+      }
+    }
+
+    document.body.addEventListener("htmx:afterOnLoad", function (event) {
+      const button = event.detail.elt;
+      const spinnerId = button.getAttribute("data-spinner-id");
+      if (spinnerId) {
+        hideSpinner(spinnerId);
+      }
+    });
+  </script>
+</main>
+{{end}}
