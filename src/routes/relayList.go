@@ -8,6 +8,8 @@ import (
 	"gfnwc/src/utils"
 )
 
+// This could be a component instead of a route and probably should be
+
 func RelayList(w http.ResponseWriter, r *http.Request) {
 	log.Println("RelayListHandler called")
 

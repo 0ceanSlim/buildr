@@ -1,6 +1,6 @@
 {{define "view"}}
 <div
-  class="container w-full px-4 mx-auto my-8 md:w-1/2 bg-bgSecondary pt-6 pb-8 mb-4 rounded"
+  class="container w-full px-4 pt-6 pb-8 mx-auto my-8 mb-4 rounded md:w-1/2 bg-bgSecondary"
 >
   <h1 class="mb-2 text-xl font-bold md:text-3xl">
     Your
@@ -19,7 +19,7 @@
       {{range .Relays.Read}}
       <li class="text-textPrimary">{{.}}</li>
       {{else}}
-      <li class="text-textSecondary text-red-300">No read relays found.</li>
+      <li class="text-red-300 text-textSecondary">No read relays found.</li>
       {{end}}
     </ul>
   </div>
@@ -30,7 +30,7 @@
       {{range .Relays.Write}}
       <li class="text-textPrimary">{{.}}</li>
       {{else}}
-      <li class="text-textSecondary text-red-300">No write relays found.</li>
+      <li class="text-red-300 text-textSecondary">No write relays found.</li>
       {{end}}
     </ul>
   </div>
@@ -43,7 +43,7 @@
       {{range .Relays.Both}}
       <li class="text-textPrimary">{{.}}</li>
       {{else}}
-      <li class="text-textSecondary text-red-300">
+      <li class="text-red-300 text-textSecondary">
         No relays found for both read and write.
       </li>
       {{end}}

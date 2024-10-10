@@ -14,84 +14,26 @@
     <link href="/static/htmx.min.js">
     -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="/style/custom.min.css" rel="stylesheet" />
+    <link rel="icon" href="/favicon.svg" />
     <script
       src="https://unpkg.com/htmx.org@1.9.12"
       integrity="sha384-ujb1lZYygJmzgSwoxRggbCHcjc0rB2XoQrxeTUQyRjrOnlCoYta87iKBWq3EsdM2"
       crossorigin="anonymous"
     ></script>
+    <script src="https://unpkg.com/hyperscript.org@0.9.12"></script>
     <!-- 
       link the custom minified styling included in this repo, built from the configuration 
       in the /web/style directory
     -->
-    <link href="/static/custom.min.css" rel="stylesheet" />
-    <link rel="icon" href="/static/img/favicon.ico" type="image/x-icon" />
 
-    <title>App - {{.Title}}</title>
-    <style>
-      /* For WebKit-based browsers (Chrome, Safari) */
-      ::-webkit-scrollbar {
-        width: 8px;
-      }
-      ::-webkit-scrollbar-track {
-        background: #00000000; /* Tailwind's gray-800 */
-      }
-      ::-webkit-scrollbar-thumb {
-        background-color: #00000000; /* Tailwind's gray-500 */
-        border-radius: 4px;
-      }
-
-      /* For Firefox */
-      * {
-        scrollbar-width: none;
-        scrollbar-color: #00000000 #00000000;
-      }
-    </style>
-    <style>
-      .spinner {
-        display: none;
-        width: 32px;
-        height: 32px;
-        border: 5px solid purple;
-        border-top: 5px solid violet;
-        border-radius: 50%;
-        animation: spin 1s linear infinite;
-      }
-
-      @keyframes spin {
-        0% {
-          transform: rotate(0deg);
-        }
-        100% {
-          transform: rotate(360deg);
-        }
-      }
-    </style>
+    <title>App Name - {{.Title}}</title>
   </head>
   <body
     class="max-w-screen-lg p-4 mx-auto font-mono text-center md:p-8 text-textPrimary bg-bgPrimary"
   >
     {{template "header" .}} {{template "view" .}} {{template "footer" .}}
-    <script src="/static/js/deleteBadge.js"></script>
   </body>
   <script src="https://unpkg.com/window.nostr.js/dist/window.nostr.js"></script>
-  <script>
-    // Function to show spinner when starting to load content
-    document.addEventListener("htmx:beforeRequest", function (event) {
-      const spinnerId = event.target.getAttribute("hx-target");
-      const spinner = document.querySelector(spinnerId + " .spinner");
-      if (spinner) {
-        spinner.style.display = "block"; // Show the spinner
-      }
-    });
-
-    // Function to hide spinner when the content is fully loaded
-    document.addEventListener("htmx:afterOnLoad", function (event) {
-      const spinnerId = event.target.getAttribute("hx-target");
-      const spinner = document.querySelector(spinnerId + " .spinner");
-      if (spinner) {
-        spinner.style.display = "none"; // Hide the spinner
-      }
-    });
-  </script>
 </html>
 {{end}}

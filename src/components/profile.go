@@ -17,7 +17,7 @@ func ProfileHandler(w http.ResponseWriter, r *http.Request) {
     displayName, _ := session.Values["displayName"].(string)
     picture, _ := session.Values["picture"].(string)
     about, _ := session.Values["about"].(string)
-    relays, _ := session.Values["relays"].(utils.RelayList)
+    
 
     // Prepare the page data
     data := utils.PageData{
@@ -26,7 +26,6 @@ func ProfileHandler(w http.ResponseWriter, r *http.Request) {
         DisplayName: displayName,
         Picture:     picture,
         About:       about,
-        Relays:      relays,
     }
 
     // Render the profile view using the common layout

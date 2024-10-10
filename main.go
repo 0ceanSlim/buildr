@@ -1,7 +1,6 @@
 package main
 
 import (
-	"embed"
 	"gfnwc/src/components"
 	"gfnwc/src/handlers"
 	"gfnwc/src/routes"
@@ -10,9 +9,6 @@ import (
 	"fmt"
 	"net/http"
 )
-
-//go:embed web/*
-var staticFiles embed.FS
 
 func main() {
 	// Load Configurations
@@ -37,16 +33,18 @@ func main() {
 
 	// Function Handlers
 	
-	// Serve Static Files
-	mux.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("web/static"))))
-	mux.HandleFunc("/favicon.ico", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "web/static/img/favicon.ico")
+	// Serve Web Files
+	// Serve specific files from the root directory
+	mux.HandleFunc("/favicon.svg", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "web/favicon.svg")
 	})
-	mux.Handle("/web/", http.StripPrefix("/web/", http.FileServer(http.FS(staticFiles))))
+	// Serve static files from the /web/static directory at /static/
+	staticDir := "web/static"
+	mux.Handle("/static/", http.StripPrefix("/static", http.FileServer(http.Dir(staticDir))))
 
-	mux.HandleFunc("/wip-message", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, `<button class="px-4 py-2 mt-4 text-xs font-semibold text-white bg-red-500 rounded-md hover:bg-red-700">I'm Working on it ⚠️</button>`)
-	})
+	// Serve CSS files from the /web/style directory at /style/
+	styleDir := "web/style"
+	mux.Handle("/style/", http.StripPrefix("/style", http.FileServer(http.Dir(styleDir))))
 
 	fmt.Printf("Server is running on http://localhost:%d\n", cfg.Port)
 	http.ListenAndServe(fmt.Sprintf(":%d", cfg.Port), mux)
