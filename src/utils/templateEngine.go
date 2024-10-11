@@ -53,6 +53,7 @@ func RenderTemplate(w http.ResponseWriter, data PageData, view string, useLoginL
         templates = append(layout, viewTemplate)
     }
     templates = append(templates, componentTemplates...)
+    
 
     // Parse all templates
     tmpl, err := template.ParseFiles(templates...)

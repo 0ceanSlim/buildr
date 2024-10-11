@@ -1,6 +1,6 @@
 {{define "view"}}
-<main class="flex flex-col my-16 md:my-32">
-  {{template "profile" .}}
+<main class="flex my-16 flex-cols-2 md:my-32">
+  {{template "profile" .}} {{template "relays" .}}
   <script>
     // Check if the Nostr extension is available
     window.onload = function () {
