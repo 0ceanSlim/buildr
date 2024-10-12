@@ -1,7 +1,6 @@
 package main
 
 import (
-	"gfnwc/src/components"
 	"gfnwc/src/handlers"
 	"gfnwc/src/routes"
 	"gfnwc/src/utils"
@@ -21,20 +20,13 @@ func main() {
 	mux := http.NewServeMux()
 	// Login / Logout
 	mux.HandleFunc("/login", routes.Login) // Login route
-	mux.HandleFunc("/do-login", handlers.LoginHandler)
+	mux.HandleFunc("/init-user", handlers.InitUser)
 	mux.HandleFunc("/logout", handlers.LogoutHandler) // Logout process
 
 	// Initialize Routes
 	mux.HandleFunc("/", routes.Index)
-	mux.HandleFunc("/relay-list", routes.RelayList)
+	mux.HandleFunc("/settings", routes.Settings)
 
-	// Render component htmls
-	mux.HandleFunc("/profile", components.ProfileHandler)
-	mux.HandleFunc("/dropdown", components.DropdownComponent)
-	mux.HandleFunc("/relays", components.RelaysComponent)
-
-	// Function Handlers
-	
 	// Serve Web Files
 	// Serve specific files from the root directory
 	mux.HandleFunc("/favicon.svg", func(w http.ResponseWriter, r *http.Request) {

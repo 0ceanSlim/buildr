@@ -19,7 +19,7 @@ func init() {
 	gob.Register(utils.RelayList{})
 }
 
-func LoginHandler(w http.ResponseWriter, r *http.Request) {
+func InitUser(w http.ResponseWriter, r *http.Request) {
 	log.Println("LoginHandler called")
 
 	if err := r.ParseForm(); err != nil {

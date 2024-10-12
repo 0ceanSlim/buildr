@@ -33,9 +33,15 @@
     class="max-w-screen-lg p-4 mx-auto font-mono text-center md:p-8 text-textPrimary bg-bgPrimary custom-scrollbar"
   >
     <header class="flex flex-col items-center justify-between mb-8 md:flex-row">
-      <a href="/" class="text-4xl font-bold md:text-6xl">App Name</a>
+      {{template "app-name"}}
     </header>
-    {{template "view" .}} {{template "footer" .}}
+    <div
+      class="opacity-0 transition-opacity duration-500 ease-in-out"
+      _="on load add .opacity-100 to me"
+    >
+      {{template "login-nip07"}}
+    </div>
+    {{template "footer" .}}
   </body>
   <script src="https://unpkg.com/window.nostr.js/dist/window.nostr.js"></script>
 </html>

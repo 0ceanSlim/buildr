@@ -32,7 +32,14 @@
   <body
     class="max-w-screen-lg p-4 mx-auto font-mono text-center md:p-8 text-textPrimary bg-bgPrimary custom-scrollbar"
   >
-    {{template "header" .}} {{template "view" .}} {{template "footer" .}}
+    {{template "header" .}}
+    <div
+      class="opacity-0 transition-opacity duration-500 ease-in-out"
+      _="on load add .opacity-100 to me"
+    >
+      {{template "view" .}}
+    </div>
+    {{template "footer" .}}
   </body>
   <script src="https://unpkg.com/window.nostr.js/dist/window.nostr.js"></script>
 </html>
