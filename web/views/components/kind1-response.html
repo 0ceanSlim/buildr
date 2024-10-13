@@ -1,0 +1,26 @@
+<!-- File: web/views/components/kind1-response.html -->
+{{define "kind1-response"}}
+<div id="message-status" class="p-2 m-4">
+  <h3>{{.Title}}</h3>
+  <p>{{.Message}}</p>
+  <p><strong>Public Key:</strong> {{.PublicKey}}</p>
+  <h4>Successful Relays:</h4>
+  <ul>
+    {{range .SuccessRelays}}
+    <li>{{.}}</li>
+    {{end}}
+  </ul>
+  <h4>Failed Relays:</h4>
+  <ul>
+    {{range .FailedRelays}}
+    <li>{{.}}</li>
+    {{end}}
+  </ul>
+  <p>The form will reset shortly...</p>
+  <script>
+    setTimeout(function () {
+      htmx.ajax("GET", "/kind1-form", "#message-form");
+    }, 5000); // Replace the form back after 5 seconds
+  </script>
+</div>
+{{end}}

@@ -5,9 +5,6 @@ import (
 	"net/http"
 )
 
-// Assuming User is defined elsewhere, like in login.go
-// var User = sessions.NewCookieStore([]byte("your-secret-key"))
-
 func LogoutHandler(w http.ResponseWriter, r *http.Request) {
 	log.Println("LogoutHandler called")
 

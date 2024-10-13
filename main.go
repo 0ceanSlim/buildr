@@ -27,6 +27,10 @@ func main() {
 	mux.HandleFunc("/", routes.Index)
 	mux.HandleFunc("/settings", routes.Settings)
 
+	// Function Handlers
+	mux.HandleFunc("/send-signed-kind1", handlers.SendSignedKind1)
+	mux.HandleFunc("/kind1-response", handlers.Kind1ResponseHandler)
+
 	// Serve Web Files
 	// Serve specific files from the root directory
 	mux.HandleFunc("/favicon.svg", func(w http.ResponseWriter, r *http.Request) {

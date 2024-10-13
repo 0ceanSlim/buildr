@@ -1,0 +1,29 @@
+{{define "kind1-form"}}
+<form
+  id="message-form"
+  class="p-2 m-4 flex-col"
+  hx-post="/send-signed-kind1"
+  hx-trigger="submit"
+  hx-target="#message-form"
+  hx-swap="outerHTML"
+>
+  <label for="message">Send a note!</label>
+  <div class="w-full">
+    <input
+      type="text"
+      id="message"
+      name="message"
+      class="text-textInverted rounded-md p-1 w-5/6"
+      required
+    />
+    <button
+      type="submit"
+      class="bg-green-400 px-2 text-textInverted rounded-md w-1/6 hover:bg-green-600 hover:text-textMuted m-2"
+    >
+      Send
+    </button>
+  </div>
+</form>
+
+<script src="/static/js/sendKind1.js"></script>
+{{end}}
