@@ -29,7 +29,6 @@ func main() {
 
 	// Function Handlers
 	mux.HandleFunc("/send-signed-kind1", handlers.SendSignedKind1)
-	mux.HandleFunc("/kind1-response", handlers.Kind1ResponseHandler)
 
 	// Serve Web Files
 	// Serve specific files from the root directory

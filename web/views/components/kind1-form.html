@@ -1,12 +1,5 @@
 {{define "kind1-form"}}
-<form
-  id="message-form"
-  class="p-2 m-4 flex-col"
-  hx-post="/send-signed-kind1"
-  hx-trigger="submit"
-  hx-target="#message-form"
-  hx-swap="outerHTML"
->
+<form id="message-form" class="p-2 m-4 flex-col" enctype="application/json">
   <label for="message">Send a note!</label>
   <div class="w-full">
     <input
@@ -24,6 +17,7 @@
     </button>
   </div>
 </form>
+<div id="message-status"></div>
 
 <script src="/static/js/sendKind1.js"></script>
 {{end}}

@@ -3,6 +3,7 @@ package handlers
 import (
 	"encoding/json"
 	"fmt"
+	"io"
 	"log"
 	"net/http"
 
@@ -11,11 +12,20 @@ import (
 	"github.com/nbd-wtf/go-nostr"
 )
 
-// SendSignedMessageHandler processes the signed message event and sends it to relays.
+// SendSignedKind1 processes the signed message event and sends it to relays.
 func SendSignedKind1(w http.ResponseWriter, r *http.Request) {
+	// Read the body for logging purposes
+	body, err := io.ReadAll(r.Body)
+	if err != nil {
+		log.Printf("Failed to read request body: %v", err)
+		http.Error(w, "Unable to read request body", http.StatusBadRequest)
+		return
+	}
+	log.Printf("Received request body: %s", string(body)) // Log the raw body for debugging.
+
 	// Decode the signed event from the client
 	var signedEvent nostr.Event
-	err := json.NewDecoder(r.Body).Decode(&signedEvent)
+	err = json.Unmarshal(body, &signedEvent)
 	if err != nil {
 		log.Printf("Failed to decode signed message event: %v", err)
 		http.Error(w, "Invalid signed event data", http.StatusBadRequest)
@@ -42,17 +52,16 @@ func SendSignedKind1(w http.ResponseWriter, r *http.Request) {
 		err := utils.SendToRelay(relay, signedEvent)
 		if err != nil {
 			log.Printf("Failed to send message event to relay %s: %v", relay, err)
-			http.Error(w, fmt.Sprintf("Failed to broadcast message event to relay: %s", relay), http.StatusInternalServerError)
-			return
+			results[relay] = fmt.Sprintf("Failed: %v", err)
+		} else {
+			results[relay] = "Success"
 		}
 	}
 
-	// Respond with success
-	response := map[string]string{"status": "success", "message": "Signed message event broadcasted successfully"}
-	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(response)
+	// Log the final relay results for debugging
+	log.Printf("Relay results: %v", results)
 
-	// Respond with the relay results
+	// Respond with the relay results as JSON
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(results)
 }
