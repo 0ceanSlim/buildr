@@ -1,21 +1,25 @@
 {{define "notes"}}
-<section class="notes-section">
-  <h2>Your Latest Notes</h2>
+<div
+  class="p-4 overflow-y-auto rounded-md max-h-96 notes-section bg-bgSecondary"
+>
+  <h2 class="mb-4 text-lg font-bold">Your Latest Notes</h2>
   {{if .Notes}}
-  <ul class="notes-list">
+  <ul class="space-y-4 notes-list">
     {{range .Notes}}
-    <li class="note-item">
-      <div class="note-content">
-        <p>{{.Content}}</p>
+    <li class="p-4 rounded-md shadow-md note-item bg-bgPrimary">
+      <div class="text-left break-words rounded-md note-content">
+        {{renderNoteContent .Content}}
       </div>
-      <div class="note-timestamp">
-        <small>{{formatTimestamp .CreatedAt}}</small>
+      <div class="mt-2 text-sm text-gray-500">
+        {{formatTimestamp .CreatedAt}}
       </div>
     </li>
     {{end}}
   </ul>
   {{else}}
-  <p>No notes found. Start creating notes to see them here.</p>
+  <p class="text-gray-600">
+    No notes found. Start creating notes to see them here.
+  </p>
   {{end}}
-</section>
+</div>
 {{end}}

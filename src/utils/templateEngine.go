@@ -5,6 +5,7 @@ import (
 	"html/template"
 	"net/http"
 	"path/filepath"
+	"regexp"
 )
 
 type PageData struct {
@@ -40,41 +41,49 @@ var layout = PrependDir(templatesDir, templateFiles)
 var loginLayout = PrependDir(templatesDir, []string{"login-layout.html", "footer.html"})
 
 func RenderTemplate(w http.ResponseWriter, data PageData, view string, useLoginLayout bool) {
-	// Define the specific template for the route
-	viewTemplate := filepath.Join(viewsDir, view)
+    viewTemplate := filepath.Join(viewsDir, view)
+    componentPattern := filepath.Join(viewsDir, "components", "*.html")
+    componentTemplates, err := filepath.Glob(componentPattern)
+    if err != nil {
+        http.Error(w, "Error loading component templates: "+err.Error(), http.StatusInternalServerError)
+        return
+    }
 
-	// Dynamically load all component templates, including profile.html
-	componentPattern := filepath.Join(viewsDir, "components", "*.html")
-	componentTemplates, err := filepath.Glob(componentPattern)
-	if err != nil {
-		http.Error(w, "Error loading component templates: "+err.Error(), http.StatusInternalServerError)
-		return
-	}
+    var templates []string
+    if useLoginLayout {
+        templates = append(loginLayout, viewTemplate)
+    } else {
+        templates = append(layout, viewTemplate)
+    }
+    templates = append(templates, componentTemplates...)
 
-	var templates []string
-	if useLoginLayout {
-		templates = append(loginLayout, viewTemplate)
-	} else {
-		templates = append(layout, viewTemplate)
-	}
-	templates = append(templates, componentTemplates...)
+    tmpl, err := template.New("").Funcs(template.FuncMap{
+        "formatTimestamp":   formatTimestamp,
+        "renderNoteContent": renderNoteContent, // Register the content rendering function
+    }).ParseFiles(templates...)
+    if err != nil {
+        http.Error(w, "Error parsing templates: "+err.Error(), http.StatusInternalServerError)
+        return
+    }
 
-	// Parse all templates with custom functions
-	tmpl, err := template.New("").Funcs(template.FuncMap{
-		"formatTimestamp": formatTimestamp, // Register the timestamp formatting function
-	}).ParseFiles(templates...)
-	if err != nil {
-		http.Error(w, "Error parsing templates: "+err.Error(), http.StatusInternalServerError)
-		return
-	}
+    layoutName := "layout"
+    if useLoginLayout {
+        layoutName = "login-layout"
+    }
+    err = tmpl.ExecuteTemplate(w, layoutName, data)
+    if err != nil {
+        http.Error(w, "Error executing template: "+err.Error(), http.StatusInternalServerError)
+    }
+}
 
-	// Execute the appropriate layout template
-	layoutName := "layout"
-	if useLoginLayout {
-		layoutName = "login-layout"
-	}
-	err = tmpl.ExecuteTemplate(w, layoutName, data)
-	if err != nil {
-		http.Error(w, "Error executing template: "+err.Error(), http.StatusInternalServerError)
-	}
+// Function to convert image links in note content into <img> tags
+func renderNoteContent(content string) template.HTML {
+    // Regular expression to detect image links (e.g., ending with .png, .jpg, etc.)
+    imageRegex := regexp.MustCompile(`(https?://[^\s]+(?:png|jpg|jpeg|gif))`)
+    
+    // Replace image links with <img> tags
+    contentWithImages := imageRegex.ReplaceAllString(content, `<img src="$1" alt="Image" class="rounded-md note-image" />`)
+    
+    // Use template.HTML to mark content as safe HTML (be careful with user-generated content)
+    return template.HTML(contentWithImages)
 }

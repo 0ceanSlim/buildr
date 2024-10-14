@@ -1,17 +1,17 @@
 {{define "kind1-form"}}
-<form id="message-form" class="p-2 m-4 flex-col" enctype="application/json">
+<form id="message-form" class="flex-col p-2 m-4" enctype="application/json">
   <label for="message">Send a note!</label>
   <div class="w-full">
     <input
       type="text"
       id="message"
       name="message"
-      class="text-textInverted rounded-md p-1 w-5/6"
+      class="w-5/6 p-1 text-black rounded-md"
       required
     />
     <button
       type="submit"
-      class="bg-green-400 px-2 text-textInverted rounded-md w-1/6 hover:bg-green-600 hover:text-textMuted m-2"
+      class="w-1/6 px-2 m-2 bg-green-400 rounded-md text-textInverted hover:bg-green-600 hover:text-textMuted"
     >
       Send
     </button>
@@ -19,15 +19,15 @@
 </form>
 <div
   id="message-status"
-  class="hidden bg-bgSecondary rounded-md p-4 m-4 mx-auto w-fit relative"
+  class="relative hidden p-4 m-4 mx-auto rounded-md bg-bgSecondary w-fit"
 >
   <button
     id="close-status"
-    class="absolute right-2 top-1 bg-bgPrimary hover:bg-bgInverted rounded-md p-1 m-1 text-xs"
+    class="absolute p-1 m-1 text-xs rounded-md right-2 top-1 bg-bgPrimary hover:bg-bgInverted"
   >
     ❌
   </button>
-  <div id="status-content" class="m-2 p-2 font-bold"></div>
+  <div id="status-content" class="p-2 m-2 font-bold"></div>
 </div>
 
 <script src="/static/js/sendKind1.js"></script>
