@@ -17,7 +17,18 @@
     </button>
   </div>
 </form>
-<div id="message-status"></div>
+<div
+  id="message-status"
+  class="hidden bg-bgSecondary rounded-md p-4 m-4 mx-auto w-fit relative"
+>
+  <button
+    id="close-status"
+    class="absolute right-2 top-1 bg-bgPrimary hover:bg-bgInverted rounded-md p-1 m-1 text-xs"
+  >
+    ❌
+  </button>
+  <div id="status-content" class="m-2 p-2 font-bold"></div>
+</div>
 
 <script src="/static/js/sendKind1.js"></script>
 {{end}}
