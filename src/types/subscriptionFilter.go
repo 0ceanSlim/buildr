@@ -7,5 +7,5 @@ type SubscriptionFilter struct {
 	Tags    map[string][]string `json:"#,omitempty"`
 	Since   *int64              `json:"since,omitempty"`
 	Until   *int64              `json:"until,omitempty"`
-	Limit   *int                `json:"limit,omitempty"`
+	Limit   *int64              `json:"limit,omitempty"`
 }

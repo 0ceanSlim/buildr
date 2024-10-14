@@ -1,6 +1,9 @@
 {{define "view"}}
-<main class="flex my-16 flex-col md:my-32">
-  {{template "kind1-form"}} {{template "profile" .}}
+<main class="flex flex-col my-16 md:my-32">
+  {{template "kind1-form"}}
+  <div class="flex space-x-4 flex-cols-2">
+    {{template "profile" .}} {{template "notes" .}}
+  </div>
   <script>
     // Check if the Nostr extension is available
     window.onload = function () {

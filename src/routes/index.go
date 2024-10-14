@@ -2,6 +2,7 @@ package routes
 
 import (
 	"gfnwc/src/handlers"
+	"gfnwc/src/types"
 	"gfnwc/src/utils"
 	"log"
 	"net/http"
@@ -20,12 +21,26 @@ func Index(w http.ResponseWriter, r *http.Request) {
 	picture, _ := session.Values["picture"].(string)
 	about, _ := session.Values["about"].(string)
 
-	// Fetch the relay list from the session
 	relays, ok := session.Values["relays"].(utils.RelayList)
 	if !ok {
 		log.Println("No relay list found in session for Index view")
-		// Optionally, you can initialize it to avoid nil issues in templates
 		relays = utils.RelayList{}
+	}
+
+	// Convert RelayList to []string if necessary
+	relayURLs := relays.ToStringSlice() // Implement this conversion function if needed
+
+	// Fetch the last 10 kind 1 notes
+	notes, err := utils.FetchLast10Kind1Notes(publicKey, relayURLs)
+	if err != nil {
+		log.Printf("Failed to fetch last 10 kind 1 notes: %v\n", err)
+		notes = []types.NostrEvent{} // Default to empty slice if there's an error
+	}
+
+	// Store notes in session if needed
+	session.Values["notes"] = notes
+	if err := session.Save(r, w); err != nil {
+		log.Printf("Failed to save session: %v\n", err)
 	}
 
 	data := utils.PageData{
@@ -35,6 +50,7 @@ func Index(w http.ResponseWriter, r *http.Request) {
 		PublicKey:   publicKey,
 		About:       about,
 		Relays:      relays,
+		Notes:       notes, // Pass the notes to the page data
 	}
 
 	utils.RenderTemplate(w, data, "index.html", false)

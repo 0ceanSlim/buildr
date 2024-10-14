@@ -16,6 +16,14 @@ type RelayList struct {
 	Both  []string
 }
 
+// ToStringSlice combines Read, Write, and Both into a single []string.
+func (r RelayList) ToStringSlice() []string {
+	var urls []string
+	urls = append(urls, r.Read...)
+	urls = append(urls, r.Write...)
+	urls = append(urls, r.Both...)
+	return urls
+}
 
 func FetchUserRelays(publicKey string, relays []string) (*RelayList, error) {
 	for _, url := range relays {

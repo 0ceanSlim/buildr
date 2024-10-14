@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"gfnwc/src/types"
 	"html/template"
 	"net/http"
 	"path/filepath"
@@ -17,6 +18,7 @@ type PageData struct {
 	Message       string   // For displaying the message content
 	SuccessRelays []string // List of relays where the message was successfully sent
 	FailedRelays  []string // List of relays where the message failed
+	Notes       []types.NostrEvent // Add the notes field to store kind 1 events
 }
 
 // Define the base directories for views and templates
@@ -57,8 +59,10 @@ func RenderTemplate(w http.ResponseWriter, data PageData, view string, useLoginL
 	}
 	templates = append(templates, componentTemplates...)
 
-	// Parse all templates
-	tmpl, err := template.ParseFiles(templates...)
+	// Parse all templates with custom functions
+	tmpl, err := template.New("").Funcs(template.FuncMap{
+		"formatTimestamp": formatTimestamp, // Register the timestamp formatting function
+	}).ParseFiles(templates...)
 	if err != nil {
 		http.Error(w, "Error parsing templates: "+err.Error(), http.StatusInternalServerError)
 		return
