@@ -29,6 +29,7 @@ func main() {
 
 	// Function Handlers
 	mux.HandleFunc("/send-signed-kind1", handlers.SendSignedKind1)
+	http.HandleFunc("/fetch-notes", handlers.FetchNotes)
 
 	// Serve Web Files
 	// Serve specific files from the root directory

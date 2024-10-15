@@ -1,8 +1,17 @@
 {{define "view"}}
 <main class="flex flex-col my-16 md:my-32">
   {{template "kind1-form"}}
-  <div class="flex space-x-4 flex-cols-2">
-    {{template "profile" .}} {{template "notes" .}}
+  <div class="flex flex-col space-x-4 md:flex-row">
+    <div
+      class="w-full p-4 mx-auto rounded-md md:w-3/5 profile-container bg-bgSecondary"
+    >
+      {{template "profile" .}}
+    </div>
+    <div
+      class="w-full md:w-2/5 p-4 overflow-y-auto notes-section md:max-h-[calc(100vh-32rem)] bg-bgSecondary rounded-md"
+    >
+      {{template "notes" .}}
+    </div>
   </div>
   <script>
     // Check if the Nostr extension is available

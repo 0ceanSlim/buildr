@@ -32,10 +32,6 @@ func Settings(w http.ResponseWriter, r *http.Request) {
 		relays = utils.RelayList{} // Initialize it to avoid nil issues in templates if required
 	}
 
-	// Log the session data to debug
-	//log.Printf("Session data in Settings: %+v\n", session.Values)
-	//log.Printf("Relays data in Settings: Read: %+v, Write: %+v, Both: %+v\n", relays.Read, relays.Write, relays.Both)
-
 	// Prepare the data to be passed to the template
 	data := utils.PageData{
 		Title:     "Settings",

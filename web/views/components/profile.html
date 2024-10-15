@@ -1,20 +1,17 @@
 {{define "profile"}}
-<div
-  class="max-w-lg p-4 mx-auto rounded-md max-h-fit bg-bgSecondary profile-container"
->
-  <div class="flex flex-col items-center mb-6">
-    <img
-      src="{{.Picture}}"
-      alt="Profile Picture"
-      class="object-cover w-64 h-64 mb-4 border-4 shadow-lg rounded-xl border-bgInverted"
-    />
-    <h2 class="text-2xl font-bold text-center">{{.DisplayName}}</h2>
-  </div>
-
-  <p class="mb-4 text-sm text-center text-textMuted">{{.PublicKey}}</p>
-
-  <div class="p-6 rounded-lg bg-bgPrimary">
-    <p class="text-lg text-left">{{.About}}</p>
-  </div>
+<div class="flex flex-col items-center mb-6">
+  <img
+    src="{{.Picture}}"
+    alt="Profile Picture"
+    class="object-cover w-64 h-64 mb-4 border-4 shadow-lg rounded-xl border-bgInverted"
+  />
+  <h2 class="text-2xl font-bold text-center">{{.DisplayName}}</h2>
 </div>
+
+<p class="mb-4 text-sm text-center text-textMuted">{{.PublicKey}}</p>
+
+<div class="p-6 rounded-lg bg-bgPrimary">
+  <p class="text-lg text-left">{{.About}}</p>
+</div>
+
 {{end}}

@@ -1,25 +1,20 @@
 {{define "notes"}}
-<div
-  class="p-4 overflow-y-auto rounded-md max-h-96 notes-section bg-bgSecondary"
->
-  <h2 class="mb-4 text-lg font-bold">Your Latest Notes</h2>
-  {{if .Notes}}
-  <ul class="space-y-4 notes-list">
-    {{range .Notes}}
-    <li class="p-4 rounded-md shadow-md note-item bg-bgPrimary">
-      <div class="text-left break-words rounded-md note-content">
-        {{renderNoteContent .Content}}
-      </div>
-      <div class="mt-2 text-sm text-gray-500">
-        {{formatTimestamp .CreatedAt}}
-      </div>
-    </li>
-    {{end}}
-  </ul>
-  {{else}}
-  <p class="text-gray-600">
-    No notes found. Start creating notes to see them here.
-  </p>
+<h2 class="mb-4 text-lg font-bold">Your Latest Notes</h2>
+{{if .Notes}}
+<ul class="space-y-4 notes-list">
+  {{range .Notes}}
+  <li class="p-4 rounded-md shadow-md note-item bg-bgPrimary">
+    <div class="text-left break-words rounded-md note-content">
+      {{renderNoteContent .Content}}
+    </div>
+    <div class="mt-2 text-sm text-textMuted">
+      {{formatTimestamp .CreatedAt}}
+    </div>
+  </li>
   {{end}}
-</div>
-{{end}}
+</ul>
+{{else}}
+<p class="text-red-600">
+  No notes found. Start creating notes to see them here!
+</p>
+{{end}} {{end}}

@@ -7,7 +7,7 @@ For Tailwind to Rebuild the CSS, Tailwind must be run to compile the new styling
 To do this run:
 
 ```bash
-tailwindcss -i web/style/input.css -o web/static/custom.min.css --minify
+tailwindcss -i web/style/input.css -o web/style/custom.min.css --minify
 ```
 
 ## Development
@@ -17,7 +17,7 @@ You can run a watcher while in development to automatically rebuild the `tailwin
 To do this run:
 
 ```bash
-tailwindcss -i web/style/input.css -o web/static/custom.min.css --watch --minify
+tailwindcss -i web/style/input.css -o web/style/custom.min.css --watch --minify
 ```
 
 ### Dark Mode

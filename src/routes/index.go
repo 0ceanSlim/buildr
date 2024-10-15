@@ -37,12 +37,6 @@ func Index(w http.ResponseWriter, r *http.Request) {
         notes = []types.NostrEvent{}
     }
 
-    // Store notes in session if needed
-    session.Values["notes"] = notes
-    if err := session.Save(r, w); err != nil {
-        log.Printf("Failed to save session: %v\n", err)
-    }
-
     data := utils.PageData{
         Title:       "Dashboard",
         DisplayName: displayName,
