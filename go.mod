@@ -1,4 +1,4 @@
-module gfnwc
+module buildr
 
 go 1.22.2
 

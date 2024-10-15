@@ -1,8 +1,8 @@
 package handlers
 
 import (
-	"gfnwc/src/types"
-	"gfnwc/src/utils"
+	"buildr/src/types"
+	"buildr/src/utils"
 	"log"
 	"net/http"
 )

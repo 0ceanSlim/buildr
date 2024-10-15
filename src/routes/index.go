@@ -1,9 +1,9 @@
 package routes
 
 import (
-	"gfnwc/src/handlers"
-	"gfnwc/src/types"
-	"gfnwc/src/utils"
+	"buildr/src/handlers"
+	"buildr/src/types"
+	"buildr/src/utils"
 	"log"
 	"net/http"
 )

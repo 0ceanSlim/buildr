@@ -1,7 +1,7 @@
 package routes
 
 import (
-	"gfnwc/src/utils"
+	"buildr/src/utils"
 	"net/http"
 )
 

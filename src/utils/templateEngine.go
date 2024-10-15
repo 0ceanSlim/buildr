@@ -1,7 +1,7 @@
 package utils
 
 import (
-	"gfnwc/src/types"
+	"buildr/src/types"
 	"html/template"
 	"net/http"
 	"path/filepath"

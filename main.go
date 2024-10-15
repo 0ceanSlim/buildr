@@ -1,9 +1,9 @@
 package main
 
 import (
-	"gfnwc/src/handlers"
-	"gfnwc/src/routes"
-	"gfnwc/src/utils"
+	"buildr/src/handlers"
+	"buildr/src/routes"
+	"buildr/src/utils"
 
 	"fmt"
 	"net/http"

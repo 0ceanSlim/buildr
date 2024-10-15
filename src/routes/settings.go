@@ -4,8 +4,8 @@ import (
 	"log"
 	"net/http"
 
-	"gfnwc/src/handlers"
-	"gfnwc/src/utils"
+	"buildr/src/handlers"
+	"buildr/src/utils"
 )
 
 func Settings(w http.ResponseWriter, r *http.Request) {

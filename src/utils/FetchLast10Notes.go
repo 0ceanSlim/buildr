@@ -6,7 +6,7 @@ import (
 	"sort"
 	"sync"
 
-	"gfnwc/src/types"
+	"buildr/src/types"
 
 	"github.com/gorilla/websocket"
 )

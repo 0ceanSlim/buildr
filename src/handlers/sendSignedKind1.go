@@ -7,7 +7,7 @@ import (
 	"log"
 	"net/http"
 
-	"gfnwc/src/utils"
+	"buildr/src/utils"
 
 	"github.com/nbd-wtf/go-nostr"
 )
